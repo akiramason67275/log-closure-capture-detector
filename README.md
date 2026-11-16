@@ -58,3 +58,10 @@ rather than dropping them.
 - `inspect_message(message, config=None) -> list[Finding]` — module-level convenience
   wrapper.
 - `DEFAULT_CONFIG` — the shared default `DetectorConfig` instance.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
